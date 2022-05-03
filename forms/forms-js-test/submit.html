@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+<p id="ada"></p>
+
+
+    <script>
+      let url=window.location.href;
+let paramString =url.split('?')[1];
+let params_arr = paramString.split('&');
+
+for (let i = 0; i < params_arr.length; i++) {
+   let pair = params_arr[i].split('=');
+   document.getElementById('ada').innerHTML+="Key is: " + pair[0] + '<br>' + "Value is: " + pair[1] + "<br>";
+   console.log("Key is:", pair[0]);
+   console.log("Value is:", pair[1]);
+}
+    </script>
+</body>
+</html>

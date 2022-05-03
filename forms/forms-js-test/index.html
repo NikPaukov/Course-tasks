@@ -7,14 +7,15 @@
 </head>
 <body>
     <div class="line-div">
+
         <div id="dot-1" class="dot"data-color="red"></div>
-        <hr id="line-1"class="line"data-color="white">
+        <div id="line-1"class="line"data-color="white"></div>
         <div id="dot-2"class="dot"data-color="white"></div>
-        <hr id="line-2"class="line"data-color="white">
+        <div id="line-2"class="line"data-color="white"></div>
         <div id="dot-3" class="dot"data-color="white"></div>
-        <hr id="line-3"class="line"data-color="white">
+        <div id="line-3"class="line"data-color="white"></div>
         <div id="dot-4"class="dot"data-color="white"></div>
-        <hr id="line-4"class="line"data-color="white">
+        <div id="line-4"class="line"data-color="white"></div>
         <div id="dot-5"class="dot" data-color="white"></div>
     </div>
     <h1>Important form</h1>
@@ -42,20 +43,20 @@
                <input required type="text" id="country" name="country" placeholder="Country">
             </fieldset>
 
-            <fieldset style="display: none;" id="third-field">
+            <fieldset  id="third-field">
                 <h2>Application</h2>
                <input required type="email" id="email" name="email" placeholder="Email adress">
                <input required type="tel" id="phone" name="phone" placeholder="Phone number">
                <input required type="text" id="tg" name="tg" placeholder="Telegram">
             </fieldset>
 
-            <fieldset style="display: none;" id="fourth-field">
+            <fieldset  id="fourth-field">
                 <h2>Applicatopn</h2>
-               <input required type="date" id="enteranceDate" name="enteranceDate" placeholder="Prefered Enterence date">
+               <input required type="text" id="enteranceDate" name="enteranceDate" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Prefered Enterence date">
                <input required type="number" id="numOfPeople" name="numOfPeople" placeholder="Prefered number of people">
             </fieldset>
 
-            <fieldset style="display: none;" id="fivth-field">
+            <fieldset  id="fivth-field">
                 <h2>General conditions</h2>
                <textarea required name="conditions" id="conditions" placeholder="Write Here"></textarea>
             </fieldset>
@@ -67,42 +68,86 @@
             <button type="submit" style="display: none;"  id="SubmitButton" class="next"> <span>Submit</span></button>
         </div>
     </form>
-
-
-    
+   
     <script>
+        function sleep (time) {
+  return new Promise((resolve) => setTimeout(resolve, time));
+}
+;
+    </script>
+    <script>
+      
+
+
         var Pages = new Array('first-field', 'second-field', 'third-field', 'fourth-field', 'fivth-field');
         var pagesIter = 0;
         var dotsIter = 2;
         var linesIter = 1;
         function next(){
-            if(pagesIter==0){
-                document.getElementById("BackButton").setAttribute("style", "display:block");
+            
+           
+            var thisPage = document.getElementById(Pages[pagesIter]);
+            var nextPage = document.getElementById(Pages[++pagesIter]) 
+
+           
+            thisPage.classList.add("page-anim");
+            sleep(500).then(()=>{
+                thisPage.style.display='none';
+            })
+            nextPage.classList.add("page-anim-reverse");
+            sleep(500).then(()=>{   
+                nextPage.style.display='flex';
+            })                 
+
+
+            if(pagesIter==1){
+                document.getElementById("BackButton").style.display='block';
             }
-            if(Pages[pagesIter] == 'fourth-field'){
-                document.getElementById("NextButton").setAttribute("style", "display:none")
-                document.getElementById("SubmitButton").setAttribute("style", "display:block")
+            if(Pages[pagesIter] == 'fivth-field'){
+                document.getElementById("NextButton").style.display='none';
+                document.getElementById("SubmitButton").style.display='block';
 
             }
             document.getElementById('dot-'+dotsIter++).setAttribute('data-color','red');
              document.getElementById('line-'+linesIter++).setAttribute('data-color','red');
         
-             document.getElementById(Pages[pagesIter]).setAttribute("style", "display:none");
-            document.getElementById(Pages[++pagesIter]).setAttribute("style", "display:flex");
+            sleep(1000).then(()=>{
+             thisPage.classList.remove("page-anim");
+             nextPage.classList.remove("page-anim-reverse");
+            })
+        }
+            
+            function prev(){
+                var thisPage = document.getElementById(Pages[pagesIter]);
+                var prevPage=  document.getElementById(Pages[--pagesIter]);
+                
+                thisPage.classList.add("page-anim");
+                sleep(500).then(()=>{
+                    thisPage.style.display='none';
+                })
+            
+                prevPage.classList.add("page-anim-reverse")
+                sleep(500).then(()=>{
+                    prevPage.style.display='flex';
+                })  
+
+            if(pagesIter==0){
+                document.getElementById("BackButton").style.display='none';
             }
-        function prev(){
-            if(pagesIter==1){
-                document.getElementById("BackButton").setAttribute("style", "display:none");
+            if(pagesIter==Pages.length-2){
+                document.getElementById("NextButton").style.display='flex';
+                document.getElementById("SubmitButton").style.display='none';
             }
 
             document.getElementById('dot-'+--dotsIter).setAttribute('data-color','white');
             document.getElementById('line-'+--linesIter).setAttribute('data-color','white');
-        
-
-            document.getElementById(Pages[pagesIter]).setAttribute("style", "display:none");
-            document.getElementById(Pages[--pagesIter]).setAttribute("style", "display:flex");   
+            sleep(1000).then(()=>{
+                thisPage.classList.remove("page-anim");
+                prevPage.classList.remove("page-anim-reverse");   
+            })
         }
-        
+
+    
         
     </script>
 </body>

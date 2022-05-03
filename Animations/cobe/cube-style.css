@@ -25,6 +25,9 @@ body{
     animation-timing-function:linear;
 
 }
+.page-anim{
+    animation: switchfield 2s linear;
+}
 @keyframes rotation {
     100%{
         transform: rotate(359deg);
