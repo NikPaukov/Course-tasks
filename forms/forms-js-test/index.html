@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>Document</title>
+</head>
+<body>
+    <div class="line-div">
+        <div id="dot-1" class="dot"data-color="red"></div>
+        <hr id="line-1"class="line"data-color="white">
+        <div id="dot-2"class="dot"data-color="white"></div>
+        <hr id="line-2"class="line"data-color="white">
+        <div id="dot-3" class="dot"data-color="white"></div>
+        <hr id="line-3"class="line"data-color="white">
+        <div id="dot-4"class="dot"data-color="white"></div>
+        <hr id="line-4"class="line"data-color="white">
+        <div id="dot-5"class="dot" data-color="white"></div>
+    </div>
+    <h1>Important form</h1>
+    <form action="submit.html">
+
+        <fieldset id="first-field">
+            <h2>Personal Info</h2>
+            <input required type="text" name="Surname1" id="Surname1" placeholder="Surname">
+            <input required type="text" name="firstname" id="firstname" placeholder="Firstname">
+            <input required   type="text" name="birthdate" id="birthdate" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="Birthdate">
+            <input required   type="number" name="insurance" id="insurance" placeholder="Insurance number">
+            <select required   id="family-status", id="family-status", aria-placeholder="Family status">
+                <option selected disabled>Family status</option>
+                <option >Married</option>
+                <option >Single</option>
+                <option>It`s complicated</option>
+                </select>
+            </fieldset>
+
+            <fieldset id ="second-field">
+                <h2>Adress</h2>
+               <input required type="text" id="street" name="street" placeholder="Street, nbr">
+               <input required type="text" id="city" name="city" placeholder="City">
+               <input required type="number" id="postcode" name="postcode" placeholder="Postcode" min =0>
+               <input required type="text" id="country" name="country" placeholder="Country">
+            </fieldset>
+
+            <fieldset style="display: none;" id="third-field">
+                <h2>Application</h2>
+               <input required type="email" id="email" name="email" placeholder="Email adress">
+               <input required type="tel" id="phone" name="phone" placeholder="Phone number">
+               <input required type="text" id="tg" name="tg" placeholder="Telegram">
+            </fieldset>
+
+            <fieldset style="display: none;" id="fourth-field">
+                <h2>Applicatopn</h2>
+               <input required type="date" id="enteranceDate" name="enteranceDate" placeholder="Prefered Enterence date">
+               <input required type="number" id="numOfPeople" name="numOfPeople" placeholder="Prefered number of people">
+            </fieldset>
+
+            <fieldset style="display: none;" id="fivth-field">
+                <h2>General conditions</h2>
+               <textarea required name="conditions" id="conditions" placeholder="Write Here"></textarea>
+            </fieldset>
+
+
+        <div class="buttons">
+            <button type="button"id="BackButton" style="display:none;" onclick="prev()" class="prev"> <span>Previous</span></button>
+            <button type="button"id="NextButton" onclick="change=next()" class="next"> <span>Next</span></button>
+            <button type="submit" style="display: none;"  id="SubmitButton" class="next"> <span>Submit</span></button>
+        </div>
+    </form>
+
+
+    
+    <script>
+        var Pages = new Array('first-field', 'second-field', 'third-field', 'fourth-field', 'fivth-field');
+        var pagesIter = 0;
+        var dotsIter = 2;
+        var linesIter = 1;
+        function next(){
+            if(pagesIter==0){
+                document.getElementById("BackButton").setAttribute("style", "display:block");
+            }
+            if(Pages[pagesIter] == 'fourth-field'){
+                document.getElementById("NextButton").setAttribute("style", "display:none")
+                document.getElementById("SubmitButton").setAttribute("style", "display:block")
+
+            }
+            document.getElementById('dot-'+dotsIter++).setAttribute('data-color','red');
+             document.getElementById('line-'+linesIter++).setAttribute('data-color','red');
+        
+             document.getElementById(Pages[pagesIter]).setAttribute("style", "display:none");
+            document.getElementById(Pages[++pagesIter]).setAttribute("style", "display:flex");
+            }
+        function prev(){
+            if(pagesIter==1){
+                document.getElementById("BackButton").setAttribute("style", "display:none");
+            }
+
+            document.getElementById('dot-'+--dotsIter).setAttribute('data-color','white');
+            document.getElementById('line-'+--linesIter).setAttribute('data-color','white');
+        
+
+            document.getElementById(Pages[pagesIter]).setAttribute("style", "display:none");
+            document.getElementById(Pages[--pagesIter]).setAttribute("style", "display:flex");   
+        }
+        
+        
+    </script>
+</body>
+</html>
