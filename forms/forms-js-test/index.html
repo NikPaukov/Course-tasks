@@ -7,6 +7,7 @@
 </head>
 <body>
     <div class="line-div">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <div id="dot-1" class="dot"data-color="red"></div>
         <div id="line-1"class="line"data-color="white"></div>
@@ -77,26 +78,35 @@
     </script>
     <script>
       
-
-
         var Pages = new Array('first-field', 'second-field', 'third-field', 'fourth-field', 'fivth-field');
         var pagesIter = 0;
         var dotsIter = 2;
         var linesIter = 1;
-        function next(){
-            
+        function next(){      
            
             var thisPage = document.getElementById(Pages[pagesIter]);
             var nextPage = document.getElementById(Pages[++pagesIter]) 
-
-           
+            var thisDot = document.getElementById('dot-'+dotsIter++);
+           var thisLine = document.getElementById('line-'+linesIter++);
             thisPage.classList.add("page-anim");
             sleep(500).then(()=>{
                 thisPage.style.display='none';
+                nextPage.classList.add("page-anim-reverse");
+
             })
-            nextPage.classList.add("page-anim-reverse");
+            thisLine.classList.add("line-anim");
+            sleep(800).then(()=>{
+                thisLine.setAttribute('data-color','red');
+                thisDot.classList.add("dot-anim");
+                sleep(200).then(()=>{
+                    thisDot.setAttribute('data-color','red');
+
+            })
+            })
+           
             sleep(500).then(()=>{   
                 nextPage.style.display='flex';
+
             })                 
 
 
@@ -108,9 +118,11 @@
                 document.getElementById("SubmitButton").style.display='block';
 
             }
-            document.getElementById('dot-'+dotsIter++).setAttribute('data-color','red');
-             document.getElementById('line-'+linesIter++).setAttribute('data-color','red');
-        
+         
+            sleep(1600).then(()=>{
+                thisDot.classList.remove("dot-anim");
+                thisLine.classList.remove("line-anim");
+            })
             sleep(1000).then(()=>{
              thisPage.classList.remove("page-anim");
              nextPage.classList.remove("page-anim-reverse");
@@ -120,6 +132,8 @@
             function prev(){
                 var thisPage = document.getElementById(Pages[pagesIter]);
                 var prevPage=  document.getElementById(Pages[--pagesIter]);
+                var thisDot = document.getElementById('dot-'+--dotsIter);
+                var thisLine = document.getElementById('line-'+--linesIter);
                 
                 thisPage.classList.add("page-anim");
                 sleep(500).then(()=>{
@@ -131,17 +145,30 @@
                     prevPage.style.display='flex';
                 })  
 
+                
+                thisDot.classList.add("dot-anim-reverse");
+                sleep(200).then(()=>{
+                    thisDot.setAttribute('data-color','white');
+                    thisLine.classList.add("line-anim-reverse");
+                    sleep(800).then(()=>{
+                        thisLine.setAttribute('data-color','white');
+  
+                    })
+                })
+
+
             if(pagesIter==0){
                 document.getElementById("BackButton").style.display='none';
             }
             if(pagesIter==Pages.length-2){
-                document.getElementById("NextButton").style.display='flex';
+                document.getElementById("NextButton").style.display='block';
                 document.getElementById("SubmitButton").style.display='none';
             }
-
-            document.getElementById('dot-'+--dotsIter).setAttribute('data-color','white');
-            document.getElementById('line-'+--linesIter).setAttribute('data-color','white');
+            
+      
             sleep(1000).then(()=>{
+                thisDot.classList.remove("dot-anim-reverse");
+                thisLine.classList.remove("line-anim-reverse");
                 thisPage.classList.remove("page-anim");
                 prevPage.classList.remove("page-anim-reverse");   
             })
